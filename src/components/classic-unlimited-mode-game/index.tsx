@@ -16,10 +16,6 @@ interface ClassicUnlimitedModeGameForm extends HTMLFormElement {
     readonly elements: ClassicUnlimitedModeGameElements;
 }
 
-const getActualCard = (cardsRandomOrder: Card[], setActualCard: Dispatch<SetStateAction<Card | undefined>>)=> {
-    setActualCard(cardsRandomOrder.pop())
-}
-
 export const ClassicUnlimitedModeGame = ({cards, cardsRandomOrder}: ClassicUnlimitedModeGameProps) => {
     const [score, setScore] = useState(0)
     const maxLife = 5
