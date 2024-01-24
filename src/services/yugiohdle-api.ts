@@ -24,4 +24,9 @@ export type Card = {
     imageUrlCropped: string,
     id: string,
     available: boolean
-  }
+}
+
+export type Response = {
+    chosenCard: Card,
+    correctCard: Card
+}

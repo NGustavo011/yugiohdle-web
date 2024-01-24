@@ -1,7 +1,8 @@
 "use client"
-import { Card } from "@/services/yugiohdle-api"
+import { Card, Response } from "@/services/yugiohdle-api"
 import { Dispatch, FormEvent, FormEventHandler, SetStateAction, useEffect, useState } from "react"
 import { SelectCardInput } from "../select-card-input"
+import { ClassicResponses } from "../classic-responses"
 
 type ClassicUnlimitedModeGameProps = {
     cards: Card[],
@@ -17,6 +18,7 @@ interface ClassicUnlimitedModeGameForm extends HTMLFormElement {
 }
 
 export const ClassicUnlimitedModeGame = ({cards, cardsRandomOrder}: ClassicUnlimitedModeGameProps) => {
+    const [responses, setResponses] = useState<Response[]>([])
     const [score, setScore] = useState(0)
     const maxLife = 5
     const [life, setLife] = useState(maxLife)
@@ -27,10 +29,17 @@ export const ClassicUnlimitedModeGame = ({cards, cardsRandomOrder}: ClassicUnlim
         ) => {
         e.preventDefault()
         const cardId = e.currentTarget.elements.cardInput.value
+        const chosenCard: Card = cards.find(card => card.id === cardId) as Card
+        const response = {
+            chosenCard: chosenCard, 
+            correctCard: actualCard as Card
+        }
+        setResponses([...responses, response])
         if(cardId===actualCard?.id){
             console.log("ACERTOU MISERAVI")
             setScore(score+1)
             setLife(maxLife)
+            setResponses([])
             if(cardsRandomOrder.length) {
                 setActualCard(cardsRandomOrder.pop())
                 return;
@@ -47,14 +56,17 @@ export const ClassicUnlimitedModeGame = ({cards, cardsRandomOrder}: ClassicUnlim
 
     return (
         <>
-            <div>
-                <p>Score: {score}</p>
-                <p>Life: {life}</p>
+            <div className="flex flex-col w-full">
+                <div>
+                    <p>Score: {score}</p>
+                    <p>Life: {life}</p>
+                </div>
+                <form onSubmit={(onSubmit)} >
+                    <SelectCardInput cards={cards} />
+                    <button type="submit">Submit</button>
+                    <ClassicResponses responses={responses} />
+                </form>
             </div>
-            <form onSubmit={(onSubmit)}>
-                <SelectCardInput cards={cards} />
-                <button type="submit">Submit</button>
-            </form>
         </>
     )
 }
