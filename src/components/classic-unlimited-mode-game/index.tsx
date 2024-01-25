@@ -5,8 +5,7 @@ import { SelectCardInput } from "../select-card-input"
 import { ClassicResponses } from "../classic-responses"
 
 type ClassicUnlimitedModeGameProps = {
-    cards: Card[],
-    cardsRandomOrder: Card[]
+    cards: Card[]
 }
 
 interface ClassicUnlimitedModeGameElements extends HTMLFormControlsCollection {
@@ -17,12 +16,17 @@ interface ClassicUnlimitedModeGameForm extends HTMLFormElement {
     readonly elements: ClassicUnlimitedModeGameElements;
 }
 
-export const ClassicUnlimitedModeGame = ({cards, cardsRandomOrder}: ClassicUnlimitedModeGameProps) => {
+export const ClassicUnlimitedModeGame = ({cards}: ClassicUnlimitedModeGameProps) => {
+    const [cardsRandomOrder, setCardsRandomOrder] = useState<Card[]>([]);
+    const [started, setStarted] = useState(false)
+    const [resetOption, setResetOption] = useState(false)
+    const [nextOption, setNextOption] = useState(false)
+    const [winned, setWinned] = useState(false)
     const [responses, setResponses] = useState<Response[]>([])
     const [score, setScore] = useState(0)
     const maxLife = 5
     const [life, setLife] = useState(maxLife)
-    const [actualCard, setActualCard] = useState<Card | undefined>( ()=> cardsRandomOrder.pop() )
+    const [actualCard, setActualCard] = useState<Card | undefined>()
     console.log(actualCard)
     const onSubmit = (
         e: FormEvent<ClassicUnlimitedModeGameForm>
@@ -36,36 +40,107 @@ export const ClassicUnlimitedModeGame = ({cards, cardsRandomOrder}: ClassicUnlim
         }
         setResponses([...responses, response])
         if(cardId===actualCard?.id){
-            console.log("ACERTOU MISERAVI")
-            setScore(score+1)
-            setLife(maxLife)
-            setResponses([])
-            if(cardsRandomOrder.length) {
-                setActualCard(cardsRandomOrder.pop())
-                return;
-            }
-            console.log("PARABÉNS VC PASSOU POR TODOS")
+            correctAnswer()
         } else{
-            console.log("ERROU NEWBIE")
-            if(life-1===0){
-                console.log("VOCÊ PERDEU")
-            }
-            setLife(life-1)
+            wrongAnswer()
         }
+    }
+
+    const startNewRun = () => {
+        setLife(maxLife)
+        setScore(0)
+        setResponses([])
+        const cardsRandomOrderA = [...cards].sort( () => .5 - Math.random() )
+        setActualCard(()=> cardsRandomOrderA.pop())
+        setCardsRandomOrder(cardsRandomOrderA);
+        setStarted(true)
+        setResetOption(false)
+        setWinned(false)
+    }
+
+    const callNextCard = () => {
+        setLife(maxLife)
+        setResponses([])
+        setActualCard(()=> cardsRandomOrder.pop())
+        setNextOption(false)
+    }
+
+    const wrongAnswer = () => {
+        console.log("ERROU NEWBIE")
+        if(life-1===0){
+            loseGame()
+        }
+        setLife(life-1)
+    }
+
+    const correctAnswer = () => {
+        console.log("ACERTOU MISERAVI")
+        setScore(score+1)
+        if(cardsRandomOrder.length) {
+            setNextOption(true)
+            return;
+        }
+        winGame()
+    }
+
+    const loseGame = () => {
+        console.log("VOCÊ PERDEU")
+        setStarted(false)
+        setResetOption(true)
+    }
+
+    const winGame = () => {
+        console.log("PARABÉNS VC PASSOU POR TODOS")
+        setWinned(true)
+        setStarted(false)
     }
 
     return (
         <>
             <div className="flex flex-col w-full">
-                <div>
-                    <p>Score: {score}</p>
-                    <p>Life: {life}</p>
-                </div>
-                <form onSubmit={(onSubmit)} >
-                    <SelectCardInput cards={cards} />
-                    <button type="submit">Submit</button>
-                    <ClassicResponses responses={responses} />
-                </form>
+                {
+                    winned ? (
+                        <>
+                            <p>Winned</p>
+                            <p>Play again?</p>
+                        </>
+                    ) : null
+                }
+                {
+                    resetOption ? (
+                        <>
+                            <p>Game Over</p>
+                        </>
+                    ) : null
+                }                
+                
+                {
+                    started ? (
+                    <>
+                        <div>
+                            <p>Score: {score}</p>
+                            <p>Life: {life}</p>
+                        </div>
+                        <form onSubmit={(onSubmit)} >
+                            <SelectCardInput cards={cards} />
+                            <button type="submit" disabled={nextOption}>Submit</button>
+                            <ClassicResponses responses={responses} />
+                        </form>
+                    </>  
+                    ) : (
+                        <>
+                            <button onClick={() => startNewRun()}>Start</button>
+                        </>
+                    )
+                }
+                {
+                    nextOption===true ? (
+                        <>
+                            <button onClick={() => callNextCard()}>Next</button>
+                        </>
+                    ) : null
+                }
+                
             </div>
         </>
     )
