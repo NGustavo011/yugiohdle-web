@@ -24,7 +24,7 @@ export const ClassicUnlimitedModeGame = ({cards}: ClassicUnlimitedModeGameProps)
     const [winned, setWinned] = useState(false)
     const [responses, setResponses] = useState<Response[]>([])
     const [score, setScore] = useState(0)
-    const maxLife = 5
+    const maxLife = 10
     const [life, setLife] = useState(maxLife)
     const [actualCard, setActualCard] = useState<Card | undefined>()
     console.log(actualCard)
