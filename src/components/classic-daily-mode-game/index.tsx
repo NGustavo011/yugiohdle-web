@@ -3,6 +3,7 @@ import { Card, Response } from "@/services/yugiohdle-api"
 import { FormEvent, useState } from "react"
 import { SelectCardInput } from "../select-card-input"
 import { ClassicResponses } from "../classic-responses"
+import { ListCardsButton } from "../list-cards-button"
 
 type ClassicDailyModeGameProps = {
     cards: Card[],
@@ -41,6 +42,7 @@ export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGamePro
     return (
         <>
             <form onSubmit={(onSubmit)} className="w-full">
+                <ListCardsButton cards={cards} />
                 <SelectCardInput cards={cards} />
                 <button type="submit">Submit</button>
                 <ClassicResponses responses={responses} />
