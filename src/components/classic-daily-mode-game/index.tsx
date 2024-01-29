@@ -19,6 +19,7 @@ interface ClassicDailyModeGameForm extends HTMLFormElement {
 }
 
 export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGameProps) => {
+    const [filteredCards, setFilteredCards] = useState<Card[]>(cards)
     const [responses, setResponses] = useState<Response[]>([])
     const onSubmit = (
         e: FormEvent<ClassicDailyModeGameForm>
@@ -42,7 +43,7 @@ export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGamePro
     return (
         <>
             <form onSubmit={(onSubmit)} className="w-full">
-                <ListCardsButton cards={cards} />
+                <ListCardsButton originalCards={cards} filteredCards={filteredCards} setFilteredCards={setFilteredCards} />
                 <SelectCardInput cards={cards} />
                 <button type="submit">Submit</button>
                 <ClassicResponses responses={responses} />

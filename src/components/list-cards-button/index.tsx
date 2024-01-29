@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ListCardsModal } from "../list-cards-modal";
 import { Card } from "@/services/yugiohdle-api";
 
 type ListCardsButtonProps = {
-    cards: Card[]
+    originalCards: Card[],
+    filteredCards: Card[],
+    setFilteredCards: Dispatch<SetStateAction<Card[]>>,
 }
 
-export const ListCardsButton = ({cards}: ListCardsButtonProps) => {
+export const ListCardsButton = ({originalCards, filteredCards, setFilteredCards}: ListCardsButtonProps) => {
     const [modalIsOpen, setIsOpen] = useState(false);
     
     function openModal() {
@@ -20,7 +22,7 @@ export const ListCardsButton = ({cards}: ListCardsButtonProps) => {
     return (
         <>
             <button onClick={openModal}>LIST</button>
-            <ListCardsModal modalIsOpen={modalIsOpen} closeModal={closeModal} cards={cards} /> 
+            <ListCardsModal modalIsOpen={modalIsOpen} closeModal={closeModal} originalCards={originalCards} filteredCards={filteredCards} setFilteredCards={setFilteredCards} /> 
         </>
     )
 }

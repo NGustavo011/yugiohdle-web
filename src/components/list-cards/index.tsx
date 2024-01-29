@@ -1,14 +1,14 @@
 import { Card } from "@/services/yugiohdle-api"
 
 type ListCardsProps = {
-    cards: Card[]
+    filteredCards: Card[],
 }
 
-export const ListCards = ({cards}: ListCardsProps) => {
+export const ListCards = ({filteredCards}: ListCardsProps) => {
     return (
         <>
             <div className="grid grid-cols-8 gap-4">
-                {cards.map((card)=>{
+                {filteredCards.map((card)=>{
                     return (
                         <div key={card.id}>
                             <img src={card.imageUrlSmall} alt={`${card.name} card`} />
