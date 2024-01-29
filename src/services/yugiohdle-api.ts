@@ -22,8 +22,7 @@ export type Card = {
     imageUrl: string,
     imageUrlSmall: string,
     imageUrlCropped: string,
-    id: string,
-    available: boolean
+    id: string
 }
 
 export type Response = {

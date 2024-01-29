@@ -3,6 +3,7 @@ import { Card, Response } from "@/services/yugiohdle-api"
 import { Dispatch, FormEvent, FormEventHandler, SetStateAction, useEffect, useState } from "react"
 import { SelectCardInput } from "../select-card-input"
 import { ClassicResponses } from "../classic-responses"
+import { ListCardsButton } from "../list-cards-button"
 
 type ClassicUnlimitedModeGameProps = {
     cards: Card[]
@@ -17,6 +18,7 @@ interface ClassicUnlimitedModeGameForm extends HTMLFormElement {
 }
 
 export const ClassicUnlimitedModeGame = ({cards}: ClassicUnlimitedModeGameProps) => {
+    const [filteredCards, setFilteredCards] = useState<Card[]>(cards)
     const [cardsRandomOrder, setCardsRandomOrder] = useState<Card[]>([]);
     const [started, setStarted] = useState(false)
     const [resetOption, setResetOption] = useState(false)
@@ -117,6 +119,7 @@ export const ClassicUnlimitedModeGame = ({cards}: ClassicUnlimitedModeGameProps)
                 {
                     started ? (
                     <>
+                        <ListCardsButton originalCards={cards} filteredCards={filteredCards} setFilteredCards={setFilteredCards} />
                         <div>
                             <p>Score: {score}</p>
                             <p>Life: {life}</p>
