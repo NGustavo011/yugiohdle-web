@@ -1,8 +1,8 @@
 import { Response } from "@/services/yugiohdle-api"
-import { ResponseInfo } from "../response-info"
 import { Fragment } from "react"
 import { ClassicResponsesHeader } from "../classic-responses-header"
-import { ResponseInfoNumber } from "../response-info-number"
+import { ResponseInfo } from "@/components/response-info"
+import { ResponseInfoNumber } from "@/components/response-info-number"
 
 type ClassicResponsesProps = {
     responses: Response[]

@@ -1,4 +1,4 @@
-import { ClassicUnlimitedModeGame } from "@/components/classic-unlimited-mode-game";
+import { ClassicUnlimitedModeGame } from "@/components/modes/classic-mode/classic-unlimited-mode-game";
 import { Card, yugiohdleApiService } from "@/services/yugiohdle-api"
 
 const getCards = (async () => {

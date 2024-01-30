@@ -1,9 +1,9 @@
 "use client"
 import { Card, Response } from "@/services/yugiohdle-api"
 import { FormEvent, useState } from "react"
-import { SelectCardInput } from "../select-card-input"
+import { SelectCardInput } from "../../../select-card-input"
+import { ListCardsButton } from "@/components/list/list-cards-button"
 import { ClassicResponses } from "../classic-responses"
-import { ListCardsButton } from "../list-cards-button"
 
 type ClassicDailyModeGameProps = {
     cards: Card[],

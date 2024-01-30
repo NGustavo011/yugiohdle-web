@@ -1,5 +1,5 @@
-import { ButtonMode } from "@/components/button-mode";
-import { CardMode } from "@/components/card-mode";
+import { ButtonMode } from "@/components/select-mode/button-mode";
+import { CardMode } from "@/components/select-mode/card-mode";
 
 export default function Home() {
   return (
@@ -8,10 +8,8 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-y-20 gap-x-4 w-full">
           <CardMode title="Modos diários">
             <ButtonMode title="Classic" href="/classic-mode/daily" />
-            <ButtonMode title="Classic" href="/classic-mode/daily" />
           </CardMode>
           <CardMode title="Modos ilimitados">
-            <ButtonMode title="Classic" href="/classic-mode/unlimited" />
             <ButtonMode title="Classic" href="/classic-mode/unlimited" />
           </CardMode>
         </div>

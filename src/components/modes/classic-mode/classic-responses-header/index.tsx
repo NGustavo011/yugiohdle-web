@@ -1,4 +1,4 @@
-import { ResponseHeader } from "../response-header"
+import { ResponseHeader } from "@/components/response-header"
 
 export const ClassicResponsesHeader = ()=>{
     return (

@@ -1,5 +1,5 @@
-import { ClassicDailyModeGame } from "@/components/classic-daily-mode-game";
-import { ClassicUnlimitedModeGame } from "@/components/classic-unlimited-mode-game";
+import { ClassicDailyModeGame } from "@/components/modes/classic-mode/classic-daily-mode-game";
+import { ClassicUnlimitedModeGame } from "@/components/modes/classic-mode/classic-unlimited-mode-game";
 import { Card, yugiohdleApiService } from "@/services/yugiohdle-api"
 
 const getDailyCard = (async () => {
