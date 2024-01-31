@@ -3,22 +3,22 @@ import { Card, Response } from "@/services/yugiohdle-api"
 import { FormEvent, useState } from "react"
 import { SelectCardInput } from "../../../select-card-input"
 import { ListCardsButton } from "@/components/list/list-cards-button"
-import Image from "next/image"
-import { ArtResponses } from "../art-responses"
+import { DescriptionCard } from "../description-card"
+import { DescriptionResponses } from "../description-responses"
 
-type ArtUnlimitedModeGameProps = {
+type DescriptionUnlimitedModeGameProps = {
     cards: Card[]
 }
 
-interface ArtUnlimitedModeGameElements extends HTMLFormControlsCollection {
+interface DescriptionUnlimitedModeGameElements extends HTMLFormControlsCollection {
     cardInput: HTMLInputElement;
 }
   
-interface ArtUnlimitedModeGameForm extends HTMLFormElement {
-    readonly elements: ArtUnlimitedModeGameElements;
+interface DescriptionUnlimitedModeGameForm extends HTMLFormElement {
+    readonly elements: DescriptionUnlimitedModeGameElements;
 }
 
-export const ArtUnlimitedModeGame = ({cards}: ArtUnlimitedModeGameProps) => {
+export const DescriptionUnlimitedModeGame = ({cards}: DescriptionUnlimitedModeGameProps) => {
     const [filteredCards, setFilteredCards] = useState<Card[]>(cards)
     const [cardsRandomOrder, setCardsRandomOrder] = useState<Card[]>([]);
     const [started, setStarted] = useState(false)
@@ -33,7 +33,7 @@ export const ArtUnlimitedModeGame = ({cards}: ArtUnlimitedModeGameProps) => {
     const [actualCard, setActualCard] = useState<Card | undefined>()
     console.log(actualCard)
     const onSubmit = (
-        e: FormEvent<ArtUnlimitedModeGameForm>
+        e: FormEvent<DescriptionUnlimitedModeGameForm>
         ) => {
         e.preventDefault()
         const cardId = e.currentTarget.elements.cardInput.value
@@ -128,11 +128,12 @@ export const ArtUnlimitedModeGame = ({cards}: ArtUnlimitedModeGameProps) => {
                         </div>
                         <form onSubmit={(onSubmit)} >
                             <div className="flex flex-col gap-y-4 my-10">
-                                <Image src={actualCard!.imageUrlCropped} alt={`${actualCard!.name} card`} width={300} height={300} className={`${blurLevel}`} />
+                                <DescriptionCard description={actualCard?.description} />
                                 <SelectCardInput cards={cards} />
                                 <button type="submit" disabled={nextOption}>Submit</button>
                             </div>
-                            <ArtResponses responses={responses} />
+                            
+                            <DescriptionResponses responses={responses} />
                         </form>
                     </>  
                     ) : (

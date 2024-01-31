@@ -125,8 +125,10 @@ export const ClassicUnlimitedModeGame = ({cards}: ClassicUnlimitedModeGameProps)
                             <p>Life: {life}</p>
                         </div>
                         <form onSubmit={(onSubmit)} >
-                            <SelectCardInput cards={cards} />
-                            <button type="submit" disabled={nextOption}>Submit</button>
+                            <div className="flex flex-col gap-y-4 my-10">
+                                <SelectCardInput cards={cards} />
+                                <button type="submit" disabled={nextOption}>Submit</button>
+                            </div>
                             <ClassicResponses responses={responses} />
                         </form>
                     </>  

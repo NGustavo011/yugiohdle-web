@@ -12,6 +12,7 @@ export default function Home() {
           <CardMode title="Modos ilimitados">
             <ButtonMode title="Classic" href="/classic-mode/unlimited" />
             <ButtonMode title="Art" href="/art-mode/unlimited" />
+            <ButtonMode title="Description" href="/description-mode/unlimited" />
           </CardMode>
         </div>
       </div>
