@@ -1,5 +1,4 @@
 import { ClassicDailyModeGame } from "@/components/modes/classic-mode/classic-daily-mode-game";
-import { ClassicUnlimitedModeGame } from "@/components/modes/classic-mode/classic-unlimited-mode-game";
 import { Card, yugiohdleApiService } from "@/services/yugiohdle-api"
 
 const getDailyCard = (async () => {
@@ -10,7 +9,7 @@ const getDailyCard = (async () => {
   const responseDailyCard = await yugiohdleApiService.get('get-daily-card');
   if(responseDailyCard.status !==200 || !responseDailyCard.data)
       throw Error(responseDailyCard.data.message)
-  const dailyCard: Card = await responseDailyCard.data
+  const dailyCard: Card = await responseDailyCard.data.classic
   return {
     cards,
     dailyCard
