@@ -8,6 +8,7 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-y-20 gap-x-4 w-full">
           <CardMode title="Modos diários">
             <ButtonMode title="Classic" href="/classic-mode/daily" />
+            <ButtonMode title="Art" href="/art-mode/daily" />
           </CardMode>
           <CardMode title="Modos ilimitados">
             <ButtonMode title="Classic" href="/classic-mode/unlimited" />
