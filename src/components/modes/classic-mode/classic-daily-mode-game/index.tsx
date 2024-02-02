@@ -44,7 +44,7 @@ export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGamePro
 
     return (
         <>   
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center w-full">
                 <ListCardsButton originalCards={cards} filteredCards={filteredCards} setFilteredCards={setFilteredCards} />
                 <form onSubmit={(onSubmit)} className="w-full">
                     <SelectCardInput cards={cards} />

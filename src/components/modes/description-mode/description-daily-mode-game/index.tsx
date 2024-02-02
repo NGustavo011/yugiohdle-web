@@ -45,7 +45,7 @@ export const DescriptionDailyModeGame = ({cards, dailyCard}: DescriptionDailyMod
 
     return (
         <>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center w-full">
                 <ListCardsButton originalCards={cards} filteredCards={filteredCards} setFilteredCards={setFilteredCards} />
                 <form onSubmit={(onSubmit)} className="w-full">
                     <div className="flex flex-col gap-y-4 my-10">
