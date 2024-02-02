@@ -48,15 +48,17 @@ export const ArtDailyModeGame = ({cards, dailyCard}: ArtDailyModeGameProps) => {
 
     return (
         <>
-            <form onSubmit={(onSubmit)} className="w-full">
+            <div className="flex flex-col justify-center items-center">
                 <ListCardsButton originalCards={cards} filteredCards={filteredCards} setFilteredCards={setFilteredCards} />
-                <div className="flex flex-col gap-y-4 my-10">
-                    <Image src={dailyCard!.imageUrlCropped} alt={`${dailyCard!.name} card`} width={300} height={300} className={`${blurLevel}`} />
-                    <SelectCardInput cards={cards} />
-                    <button type="submit" disabled={winned}>Submit</button>
-                </div>
-                <ArtResponses responses={responses} />
-            </form>
+                <form onSubmit={(onSubmit)} className="w-full">
+                    <div className="flex flex-col gap-y-4 my-10">
+                        <Image src={dailyCard!.imageUrlCropped} alt={`${dailyCard!.name} card`} width={300} height={300} className={`${blurLevel}`} />
+                        <SelectCardInput cards={cards} />
+                        <button type="submit" disabled={winned}>Submit</button>
+                    </div>
+                    <ArtResponses responses={responses} />
+                </form>
+            </div>
         </>
     )
 }

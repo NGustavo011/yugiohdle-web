@@ -1,4 +1,4 @@
-import { ClassicDailyModeGame } from "@/components/modes/classic-mode/classic-daily-mode-game";
+import { DescriptionDailyModeGame } from "@/components/modes/description-mode/description-daily-mode-game";
 import { Card, yugiohdleApiService } from "@/services/yugiohdle-api"
 
 const getDailyCard = (async () => {
@@ -9,19 +9,19 @@ const getDailyCard = (async () => {
   const responseDailyCard = await yugiohdleApiService.get('get-daily-card');
   if(responseDailyCard.status !==200 || !responseDailyCard.data)
       throw Error(responseDailyCard.data.message)
-  const dailyCard: Card = await responseDailyCard.data.classic
+  const dailyCard: Card = await responseDailyCard.data.description
   return {
     cards,
     dailyCard
   }
 })
 
-export default async function ClassicUnlimitedMode() {
+export default async function DescriptionUnlimitedMode() {
   const {cards, dailyCard} = await getDailyCard()
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm lg:flex">
-        <ClassicDailyModeGame cards={cards} dailyCard={dailyCard} />
+        <DescriptionDailyModeGame cards={cards} dailyCard={dailyCard} />
       </div>
     </main>
   );

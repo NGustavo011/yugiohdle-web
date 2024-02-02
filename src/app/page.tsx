@@ -9,6 +9,7 @@ export default function Home() {
           <CardMode title="Modos diários">
             <ButtonMode title="Classic" href="/classic-mode/daily" />
             <ButtonMode title="Art" href="/art-mode/daily" />
+            <ButtonMode title="Description" href="/description-mode/daily" />
           </CardMode>
           <CardMode title="Modos ilimitados">
             <ButtonMode title="Classic" href="/classic-mode/unlimited" />

@@ -3,27 +3,28 @@ import { Card, Response } from "@/services/yugiohdle-api"
 import { FormEvent, useState } from "react"
 import { SelectCardInput } from "../../../select-card-input"
 import { ListCardsButton } from "@/components/list/list-cards-button"
-import { ClassicResponses } from "../classic-responses"
+import { DescriptionResponses } from "../description-responses"
+import { DescriptionCard } from "../description-card"
 
-type ClassicDailyModeGameProps = {
+type DescriptionDailyModeGameProps = {
     cards: Card[],
     dailyCard: Card
 }
 
-interface ClassicDailyModeGameElements extends HTMLFormControlsCollection {
+interface DescriptionDailyModeGameElements extends HTMLFormControlsCollection {
     cardInput: HTMLInputElement;
 }
   
-interface ClassicDailyModeGameForm extends HTMLFormElement {
-    readonly elements: ClassicDailyModeGameElements;
+interface DescriptionDailyModeGameForm extends HTMLFormElement {
+    readonly elements: DescriptionDailyModeGameElements;
 }
 
-export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGameProps) => {
+export const DescriptionDailyModeGame = ({cards, dailyCard}: DescriptionDailyModeGameProps) => {
     const [filteredCards, setFilteredCards] = useState<Card[]>(cards)
     const [responses, setResponses] = useState<Response[]>([])
     const [winned, setWinned] = useState(false)
     const onSubmit = (
-        e: FormEvent<ClassicDailyModeGameForm>
+        e: FormEvent<DescriptionDailyModeGameForm>
         ) => {
         e.preventDefault()
         
@@ -43,13 +44,16 @@ export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGamePro
     }
 
     return (
-        <>   
+        <>
             <div className="flex flex-col justify-center items-center">
                 <ListCardsButton originalCards={cards} filteredCards={filteredCards} setFilteredCards={setFilteredCards} />
                 <form onSubmit={(onSubmit)} className="w-full">
-                    <SelectCardInput cards={cards} />
-                    <button type="submit" disabled={winned}>Submit</button>
-                    <ClassicResponses responses={responses} />
+                    <div className="flex flex-col gap-y-4 my-10">
+                        <DescriptionCard description={dailyCard.description} />
+                        <SelectCardInput cards={cards} />
+                        <button type="submit" disabled={winned}>Submit</button>
+                    </div>
+                    <DescriptionResponses responses={responses} />
                 </form>
             </div>
         </>
