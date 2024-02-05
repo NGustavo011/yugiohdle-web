@@ -29,3 +29,8 @@ export type Response = {
     chosenCard: Card,
     correctCard: Card
 }
+
+export type CacheResponses = {
+    responses: string[],
+    date: string
+}

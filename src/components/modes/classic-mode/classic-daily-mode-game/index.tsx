@@ -1,5 +1,5 @@
 "use client"
-import { Card, Response } from "@/services/yugiohdle-api"
+import { CacheResponses, Card, Response } from "@/services/yugiohdle-api"
 import { FormEvent, useEffect, useState } from "react"
 import { SelectCardInput } from "../../../select-card-input"
 import { ListCardsButton } from "@/components/list/list-cards-button"
@@ -17,11 +17,6 @@ interface ClassicDailyModeGameElements extends HTMLFormControlsCollection {
   
 interface ClassicDailyModeGameForm extends HTMLFormElement {
     readonly elements: ClassicDailyModeGameElements;
-}
-
-type CacheResponses = {
-    responses: string[],
-    date: string
 }
 
 export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGameProps) => {
