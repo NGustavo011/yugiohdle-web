@@ -1,9 +1,10 @@
 "use client"
 import { Card, Response } from "@/services/yugiohdle-api"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { SelectCardInput } from "../../../select-card-input"
 import { ListCardsButton } from "@/components/list/list-cards-button"
 import { ClassicResponses } from "../classic-responses"
+import { getCookie, setCookie } from 'typescript-cookie'
 
 type ClassicDailyModeGameProps = {
     cards: Card[],
@@ -18,10 +19,16 @@ interface ClassicDailyModeGameForm extends HTMLFormElement {
     readonly elements: ClassicDailyModeGameElements;
 }
 
+type CacheResponses = {
+    responses: string[],
+    date: string
+}
+
 export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGameProps) => {
     const [filteredCards, setFilteredCards] = useState<Card[]>(cards)
     const [responses, setResponses] = useState<Response[]>([])
     const [winned, setWinned] = useState(false)
+
     const onSubmit = (
         e: FormEvent<ClassicDailyModeGameForm>
         ) => {
@@ -34,13 +41,68 @@ export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGamePro
             correctCard: dailyCard
         }
         setResponses([...responses, response])
+        setResponsesToday([...responses, response])
         if(cardId===dailyCard.id){
             console.log("ACERTOU MISERAVI")
-            setWinned(true)
+            setWinnedToday()
         } else{
             console.log("ERROU NEWBIE")
         }
     }
+
+    const verifyWinnedToday = () => {
+        const winnedCache = getCookie('classicDailyWinned')
+        if(!winnedCache){
+            return false
+        }
+        const date = new Date().toLocaleDateString("pt-BR")
+        const winned = winnedCache === `win-${date}` ? true : false
+        return winned
+    }
+
+    const setWinnedToday = () => {
+        const date = new Date().toLocaleDateString("pt-BR")
+        setCookie('classicDailyWinned', `win-${date}`)
+        setWinned(true)
+    }
+    
+    const verifyResponsesToday = (): Response[] => {
+        const date = new Date().toLocaleDateString("pt-BR")
+        const responsesCache = getCookie('classicDailyResponses')
+        if(!responsesCache){
+            return []
+        }
+        const responsesJson: CacheResponses = JSON.parse(responsesCache)
+        const responseCards = cards.filter(card => responsesJson.responses.includes(card.id))
+        const responsesFounded = responseCards.map((card): Response => {
+            return {
+                chosenCard: card,
+                correctCard: dailyCard
+            }
+        })
+        const responses: Response[] = responsesJson.date === `${date}` ? responsesFounded : []
+        return responses
+    }
+
+    const setResponsesToday = (responses: Response[]) => {
+        const date = new Date().toLocaleDateString("pt-BR")
+        const responsesId = responses.map(response => response.chosenCard.id)
+        const responsesToday: CacheResponses = {
+            responses: responsesId,
+            date
+        }
+        setCookie('classicDailyResponses', `${JSON.stringify(responsesToday)}`)
+    }
+
+    useEffect(()=>{
+        const winned = verifyWinnedToday()
+        if(winned) {
+            setWinnedToday()
+        }
+        const responsesToday = verifyResponsesToday()
+        console.log(responsesToday)
+        setResponses(responsesToday)
+    }, [])
 
     return (
         <>   
