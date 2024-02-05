@@ -73,7 +73,10 @@ export const ClassicDailyModeGame = ({cards, dailyCard}: ClassicDailyModeGamePro
             return []
         }
         const responsesJson: CacheResponses = JSON.parse(responsesCache)
-        const responseCards = cards.filter(card => responsesJson.responses.includes(card.id))
+        console.log(responsesJson)
+        const responseCards = responsesJson.responses.map((responseId): Card => {
+            return cards.find(card => card.id === responseId) as Card
+        })
         const responsesFounded = responseCards.map((card): Response => {
             return {
                 chosenCard: card,
