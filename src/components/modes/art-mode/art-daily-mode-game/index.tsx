@@ -71,7 +71,6 @@ export const ArtDailyModeGame = ({cards, dailyCard}: ArtDailyModeGameProps) => {
             return []
         }
         const responsesJson: CacheResponses = JSON.parse(responsesCache)
-        console.log(responsesJson)
         const responseCards = responsesJson.responses.map((responseId): Card => {
             return cards.find(card => card.id === responseId) as Card
         })
@@ -101,7 +100,6 @@ export const ArtDailyModeGame = ({cards, dailyCard}: ArtDailyModeGameProps) => {
             setWinnedToday()
         }
         const responsesToday = verifyResponsesToday()
-        console.log(responsesToday)
         setResponses(responsesToday)
     }, [])
 
