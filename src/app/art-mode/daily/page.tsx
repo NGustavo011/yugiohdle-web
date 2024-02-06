@@ -1,3 +1,4 @@
+import { GlobalHeader } from "@/components/global-header";
 import { ArtDailyModeGame } from "@/components/modes/art-mode/art-daily-mode-game";
 import { Card, yugiohdleApiService } from "@/services/yugiohdle-api"
 
@@ -19,7 +20,8 @@ const getDailyCard = (async () => {
 export default async function ArtUnlimitedMode() {
   const {cards, dailyCard} = await getDailyCard()
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center">
+      <GlobalHeader />
       <div className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm lg:flex">
         <ArtDailyModeGame cards={cards} dailyCard={dailyCard} />
       </div>
