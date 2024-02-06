@@ -101,6 +101,7 @@ export const ArtDailyModeGame = ({cards, dailyCard}: ArtDailyModeGameProps) => {
         }
         const responsesToday = verifyResponsesToday()
         setResponses(responsesToday)
+        setAttempts(responsesToday.length)
     }, [])
 
     return (
